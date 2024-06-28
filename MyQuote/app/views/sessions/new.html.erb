@@ -1,0 +1,31 @@
+<!-- This view controls the sign in functionality of the program which allows users with an account to sign in.
+ The user will enter their email and password and if the entered credentials are correct, then the user will be granted access
+ to their profile, if not, an error message will be displayed, prompting the user to try again  
+ This view was created using workshop materials -->
+
+<%= stylesheet_link_tag "customInputBar", "data-turbo-track": "reload" %>
+<div class="centered-form">   
+
+    <%= form_tag login_path, method: :post do %>
+        <div class="form">
+            <% if flash[:error] %>
+                <p class="form centered-error error" style="color:red;"><%= flash[:error] %></p>
+            <% end %>
+            <p class="form-title">Sign In To Your Account</p>
+                <div class="input-container">
+                    <%= email_field_tag :email, nil, required: true, placeholder: 'Email Address', class: 'form-control' %> <!-- allows the user to enter their email address that is associated with their account -->
+                </div>
+                <div class="input-container">
+                    <%= password_field_tag :password, nil, required: true, placeholder: 'Password', class: 'form-control' %> <!-- allows the user to enter their password -->
+                </div>
+                <div>
+                    <%= submit_tag 'Login', class: 'submit' %>
+                </div>
+
+                <p class="signup-link"> <!-- This section allows the user to quickly navigate to the sign up page if they dont have an account -->
+                    No account?
+                    <a href="/users/new">Click Here</a>
+                </p>
+        </div>
+    <% end %> 
+</div>

@@ -1,0 +1,54 @@
+<!-- This view creates the search functionality within the app. The user can select a category from a drop down box which will
+  then display all of the public quotes that have the same category when the user presses the search button.
+  If there are no quotes found for that category, then a message will display stating that no quotes were found for that category. 
+  This section was created using workshop materials -->
+
+<%= stylesheet_link_tag "customInputBar", "data-turbo-track": "reload" %>
+<div class="centered-formtwo">
+  <div class="form">
+
+  <p class="form-titletwo formtwo">Search</p>
+  <p class="form-title" style="padding-bottom:10px">Search For Quotes By Categories</p>
+
+  <%= form_tag search_path, method: :get do %>
+    <div class="form-group" style="padding-bottom: 10px;">
+      <%= collection_select(:category_query, :id, Category.all, :id, :categoryname, { include_blank: "Select a category" }, class: "form-control") %>
+    </div>
+    <%= submit_tag "Search", class: "submit" %>
+  <% end %>
+
+  </div>
+</div>
+
+<br>
+
+<!-- This section handles what quotes will be displayed when the category has been selected. -->
+
+<% if params[:category_query].present? && params[:category_query][:id].present? %>
+  <% if @category.present? %>
+  <div class="centered-formtwo">
+    <p class="form-texttwo form" style="padding-top: 15px;">Results for Category: <%= @category.categoryname %></p>
+  </div>
+    <% if @quotes.any? %>
+      <% @quotes.each do |quote| %> 
+        <div class="card bg-body-tertiary" style="margin-bottom: 10px;">
+          <div class="card-body">
+            <h3 class="card-title">"<%= quote.quotetext%>"</h3>
+            <p class="card-text">-- <%= quote.philosopher.pfname %> <%= quote.philosopher.plname %><br>
+            <% if quote.publicationyear.present? %> 
+              <p class="card-text">Published: <%= quote.publicationyear.strftime('%Y') %><br>
+            <% end %>
+            Posted By: <%= quote.user.ufname%> <%= quote.user.ulname[0]%>
+            <br>
+            [<a href="/quotes/<%= quote.id %>">Read More</a>]</p>
+          </div>
+        </div>
+      </div>
+    <% end %>
+    <% else %>
+      <div class="centered-formtwo">
+        <p class="form-texttwo form">No Quotes With The Matching Category Were Found</p>
+      </div>
+    <% end %>
+  <% end %>
+<% end %> 

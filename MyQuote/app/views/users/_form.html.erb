@@ -1,0 +1,55 @@
+<!-- This view controls the sign up functionality of the program which allows users without an account to sign up.
+ The user will enter their first name, last name, email and password. If they enter everything correctly, then they will then be able to login,
+ otherwise a error message will appear, prompting the user to try again.   
+ This view was created using workshop materials -->
+
+<%= stylesheet_link_tag "customInputBar", "data-turbo-track": "reload" %>
+<div class="centered-form">   
+  
+  <%= form_with(model: user) do |form| %> <!-- This section catches potential errors and displays them to the user so they can fix their input -->
+    <% if user.errors.any? %>
+      <div class = "alert alert-danger">
+        <ul>
+          <% user.errors.full_messages.each do |message| %>
+            <li><%= message.gsub("Password digest", "Password") %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+    
+  <div class="form">
+    <p class="form-title">Sign Up For An Account</p>
+      <div class="input-container">
+        <%= form.text_field :ufname, required: true, placeholder: "First Name", class: "form-control" %> <!-- allows the user to enter their first name -->
+      </div>
+
+      <div class="input-container">
+        <%= form.text_field :ulname, required: true, placeholder: "Last Name", class: "form-control" %> <!-- allows the user to enter their last name -->
+      </div>
+
+      <div class="input-container">
+        <%= form.text_field :email, required: true, placeholder: "Email Address", class: "form-control"%> <!-- allows the user to enter their email address -->
+      </div>
+
+      <div class="input-container">
+        <%= form.password_field :password, required: true, placeholder: "Password", class: "form-control" %> <!-- allows the user to enter create a password -->
+      </div>
+
+      <div>
+        <%= form.hidden_field :is_admin, value: false %> <!-- This hidden field makes sure that when a new account is created, the account is set to a standard user not an admin-->
+      </div>
+
+      <div>
+        <%= form.hidden_field :status, value: "Active" %>  <!-- This hidden field makes sure that the new account has an active status so the user can login -->
+      </div>
+
+      <div>
+        <%= form.submit "Submit", class: "submit" %>
+      </div>
+      
+      <p class="signup-link"> <!-- This section allows the user to quickly navigate to the sign in  page if the already have an account -->
+        Already Have An Account?
+        <a href="/login">Click Here</a>
+      </p>
+  <% end %>
+</div>

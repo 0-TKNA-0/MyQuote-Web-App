@@ -1,0 +1,18 @@
+<!-- This view was created as a landing page for the standard users to be directed to after they login. 
+It will show they basic information such as first name, last name, and email address -->
+
+<%= stylesheet_link_tag "customInputBar", "data-turbo-track": "reload" %>
+<div class="centered-form">   
+        <div class="form">
+            <p class="form-titletwo" style="padding-bottom: 30px;">Welcome, <%= current_user.ufname %></p>
+
+            <!-- This section displays user details -->
+            <p class="formtwo form-text">First Name: <br><%= current_user.ufname %></p>
+            <p class="formtwo form-text">Last Name: <br><%= current_user.ulname %></p>
+            <p class="formtwo form-text">Email: <br><%= current_user.email %></p>
+
+            <div class="linkto">
+                <%= link_to "Edit Profile Details", edit_user_path(current_user), class: "submit" %>
+            </div>
+        </div>
+</div>

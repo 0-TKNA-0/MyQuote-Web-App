@@ -1,0 +1,27 @@
+<!-- This view shows all of a individual user's quotes that they have added to the app. They must be logged in to see their quotes.  -->
+
+<%= stylesheet_link_tag "customInputBar", "data-turbo-track": "reload" %>
+<div class="centered-formtwo" style="padding-bottom: 20px;">
+    <div class="form" style="padding-bottom: 0px;">  
+        <p class="form-title" style="padding-bottom:10px">Your Uploaded Quotes</p> 
+    </div>
+</div>
+
+<!-- This section fetches each quote that has been added by the logged in user and displayed them to the users uploaded quotes page. 
+The user can click on the "Read More" link to be taken to another page which shows all of the quote's details
+-->
+
+<% @quotes.each do |quote| %> 
+    <div class="card bg-body-tertiary" style="margin-bottom: 10px;">
+        <div class="card-body">
+            <h3 class="card-title">"<%= quote.quotetext%>"</h3>
+            <p class="card-text">-- <%= quote.philosopher.pfname %> <%= quote.philosopher.plname %><br>
+            <% if quote.publicationyear.present? %> 
+                <p class="card-text">Published: <%= quote.publicationyear.strftime("%Y") %><br>
+            <% end %>
+            Posted By: <%= quote.user.ufname%> <%= quote.user.ulname[0]%>
+            <br>
+            [<a href="/quotes/<%= quote.id %>">Read More</a>]</p>
+        </div>
+    </div>
+<% end %>

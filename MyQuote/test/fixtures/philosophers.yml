@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  pfname: MyString
+  plname: MyString
+  pdob: 2023-09-05
+  pdod: 2023-09-05
+  pbiography: MyText
+
+two:
+  pfname: MyString
+  plname: MyString
+  pdob: 2023-09-05
+  pdod: 2023-09-05
+  pbiography: MyText

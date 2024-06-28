@@ -1,0 +1,74 @@
+<!-- This view contains the required code for the navbar at the top of the screen. Since it is in the _header file, it is displayed on every page.
+  Bootstrap code and workshop material was used to create this navbar -->
+
+<%= stylesheet_link_tag "bgcolour", "data-turbo-track": "reload" %>
+
+
+<nav class="navbar navbar-expand-lg custom-header">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="<%= root_path %>" style="color:white;">MyQuote</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <%= link_to 'Home', root_path, class:"nav-link custom-text" %>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="/search" style="color: white;">Search</a>
+        </li>
+
+        <li class="nav-item">
+          <%= link_to 'About Us', home_about_path, class:"nav-link custom-text" %>
+        </li>
+
+        <% if !logged_in? %>
+          <li class="nav-item">
+            <li><%= link_to 'Sign Up', new_user_path, class:"nav-link custom-text" %></li>
+          </li>
+        <% end %>
+        
+        <% if !logged_in? %>
+          <li class="nav-item">
+            <li><%= link_to 'Sign In', login_path, class:"nav-link custom-text" %></li>
+          </li>
+        <% end %>
+
+        <% if logged_in? %>
+          <li class="nav-item">
+            <%= button_to "Sign Out", logout_path, method: :delete, class:"btn btn-link nav-link custom-text" %>
+          </li>
+        <% end %>
+
+        <% if logged_in? && !is_administrator? %>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" style="color:white;" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              User
+            </a>
+            <ul class="dropdown-menu">
+              <%= link_to "My Account", userhome_path, class:"dropdown-item custom-text" %>
+              <%= link_to "My Quotes", your_quotes_path, class:"dropdown-item custom-text" %>
+              <li><hr class="dropdown-divider"></li>
+              <%= link_to "Add New Quote", new_quote_path, class:"dropdown-item custom-text" %>
+            </ul>
+          </li>
+        <% end %>
+
+        <% if logged_in? && is_administrator? %>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" style="color:white;" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Admin
+            </a>
+            <ul class="dropdown-menu">
+              <%= link_to "Admin Home", admin_path, class:"dropdown-item custom-text" %>
+              <li><%= link_to 'Manage Users', users_path, class:"dropdown-item custom-text" %></li>
+            </ul>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</nav>

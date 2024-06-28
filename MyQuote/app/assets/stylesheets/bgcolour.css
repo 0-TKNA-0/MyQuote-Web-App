@@ -1,0 +1,30 @@
+/* This asset css sheet is used for the overall colour scheme of the app */
+.custom-bg {
+    background-color: #263f4d;
+}
+
+.custom-test{
+    background-color: #051122;
+}
+
+.custom-header{
+    background-color: #53399a;
+}
+
+.navbar-nav .dropdown-menu{
+    background-color: #53399a;
+}
+
+.navbar-nav .dropdown-menu .dropdown-item:hover{
+    background-color: #2b2145;
+    color: white;
+}
+
+.navbar-nav .nav-item .nav-link:hover {
+    background-color: #2b2145;
+}
+
+.custom-text{
+    color: white !important;
+    font-family: aria-current, sans-serif;
+  }

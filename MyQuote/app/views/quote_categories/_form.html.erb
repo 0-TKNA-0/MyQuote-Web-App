@@ -1,0 +1,29 @@
+<!-- This view was automatically created by ruby on rails and is not utilised directly -->
+
+<%= form_with(model: quote_category) do |form| %>
+  <% if quote_category.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(quote_category.errors.count, "error") %> prohibited this quote_category from being saved:</h2>
+
+      <ul>
+        <% quote_category.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :Quote_id, style: "display: block" %>
+    <%= form.text_field :Quote_id %>
+  </div>
+
+  <div>
+    <%= form.label :Category_id, style: "display: block" %>
+    <%= form.text_field :Category_id %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

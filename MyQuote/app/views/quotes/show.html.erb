@@ -1,0 +1,47 @@
+<!-- This view shows a quote that has been selected after the "Read More" button has been pressed for that given quote. 
+  This section just gives more details about the quote, such as the philosopher's birth and death year, the publication year, 
+  biography and category that the quote belongs to. -->
+  
+<%= stylesheet_link_tag "customInputBar", "data-turbo-track": "reload" %>
+
+<div class="card bg-body-tertiary" style="margin-bottom: 10px;">
+  <div class="card-body">
+    <h3 class="card-title">"<%= @quote.quotetext%>"</h3>
+    <p class="card-text">-- <%= @quote.philosopher.pfname %> <%= @quote.philosopher.plname %></p>
+
+    <% if @quote.philosopher.pbiography.present? %> 
+      <p class="card-text">Biography: <%= @quote.philosopher.pbiography %><br>
+    <% end %>
+
+    <p class="card-text">Birth Year: <%= @quote.philosopher.pdob.strftime('%Y') %>
+
+    <% if @quote.philosopher.pdod.present? %> 
+      <p class="card-text">Death Year: <%= @quote.philosopher.pdod.strftime('%Y') %>
+    <% end %>
+
+    <% if @quote.publicationyear.present? %> 
+      <p class="card-text">Quote Published: <%= @quote.publicationyear.strftime('%Y') %>
+    <% end %>
+
+    <p class="card-text">Category: 
+      <% @quote.categories.each do |category| %>
+        <%= category.categoryname %>
+      <% end %><br><br>
+    </p>
+
+    <p class="card-text">Posted By: <%= @quote.user.ufname%> <%= @quote.user.ulname[0]%></p>
+     <% if @quote.comment.present? %>
+        <p class="card-text">Comment: <%= @quote.comment%></p>
+     <% end %>
+  </div>
+</div>
+
+<div class="centered-formtwo"> <!-- This section contains three buttons that allow the creator to edit and delete their quote or return to the menu -->
+  <div class="form">
+    <%= link_to "Back", root_path, class: "submit" %> 
+    <% if current_user == @quote.user %><br> <!-- This section prevents every user other than the creator of the quote from editing or deleting a quote -->
+      <%= link_to "Edit Quote", edit_quote_path(@quote), class: "submit" %> 
+      <%= button_to "Delete Quote", @quote, method: :delete, class: "submit" %>
+    <% end %>
+  </div>
+</div>

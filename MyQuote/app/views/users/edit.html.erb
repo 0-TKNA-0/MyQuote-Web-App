@@ -1,0 +1,45 @@
+<!-- This view allows the user to edit their personal details such as their first name, last name and email. If they want to change their password
+  Then they will click the change password button which will take them to another page. -->
+
+<%= stylesheet_link_tag "customInputBar", "data-turbo-track": "reload" %>
+<div class="centered-form">   
+  <div class="form">
+
+    <%= form_for(@user) do |f| %> <!-- This section catches potential errors and displays them to the user so they can fix their input -->
+        <% if @user.errors.any? %>
+          <div class="alert alert-danger">
+            <ul>
+              <% @user.errors.full_messages.each do |message| %>
+                <li><%= message.gsub("Password digest", "Password").gsub("Ufname", "First Name ").gsub("Ulname", "Last Name") %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+        
+      <p class="form-title" style="padding-bottom:10px">Edit Account Details</p>
+      <div style="padding-bottom: 50px">
+        <p class="formtwo form-text">Change First Name </p>
+        <%= f.text_field :ufname, class: "form-control" %> <!-- allows a user to edit their first name -->
+      </div>
+
+      <div style="padding-bottom: 50px">
+        <p class="formtwo form-text">Change Last Name </p>
+        <%= f.text_field :ulname, class: "form-control" %> <!-- allows a user to edit their last name -->
+      </div>
+
+      <div style="padding-bottom: 20px">
+        <p class="formtwo form-text">Change Email Address</p>
+        <%= f.email_field :email, class: "form-control" %> <!-- allows a user to edit their email address -->
+      </div>
+
+      <div class="form-group" style="padding-bottom: 20px">
+        <p class="formtwo form-text">Enter New Password </p>
+        <%= f.password_field :password, class: "form-control" %> <!-- allows the user to create a new password -->
+      </div>
+      
+      <div class="signup-link">
+        <%= f.submit "Save Changes", class: "signup-link submit" %>
+      </div>
+    <% end %>
+  </div>
+</div>

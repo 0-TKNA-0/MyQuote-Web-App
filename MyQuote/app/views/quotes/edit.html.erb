@@ -1,0 +1,89 @@
+<!-- This view allows a logged in user to edit a quote that they have posted. It will allow the user to edit their quote, 
+  philosopher first and last name, philosopher biography (if applicable), philosopher date of birth , philosopher date of death (if applicable), 
+  the quote's publication year (if applicable), edit the category that is selected, edit a comment (if applicable) and set the quote visibility to 
+  public or private. This code was created using workshop materials -->
+
+<%= stylesheet_link_tag "customInputBar", "data-turbo-track": "reload" %>
+<div class="centered-formtwo">   
+  <div class="form">
+
+    <%= form_with(model: @quote, local: true) do |form| %> <!-- This section catches potential errors and displays them to the user so they can fix their input -->
+      <% if @quote.errors.any? %>
+        <div class = "alert alert-danger">
+          <ul>
+            <% @quote.errors.full_messages.each do |message| %>
+              <% modified_message = message.gsub("Category ids", "Category").gsub("Philosopher pfname", "Philosopher First Name only allows letters").gsub("Philosopher plname", "Philosopher Last Name only allows letters") %>
+              <li><%= modified_message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <%= form_with(model: @quote, url: quote_path(@quote), method: :patch, local: true, id: "quote-form") do |f| %>
+          <!-- This is a hidden field for the requisite user_id which is extracted from the session object created when the user is logged in. -->
+        <%= f.hidden_field :user_id, value: current_user.id %>
+        
+          <p class="form-title formtwo" style="padding-bottom:10px">Edit Quote</p>
+
+          <div class="input-container">
+            <%= f.text_area :quotetext, required: true, placeholder: "Enter Quote", class: "form-control" %> <!-- allows the user to edit the quote -->
+          </div>
+
+          <%= f.fields_for :philosopher do |philosopher_fields| %>
+            <div class="input-container">
+              <%= philosopher_fields.text_field :pfname, required: true, placeholder: "Philosopher First Name", class: "form-control" %> <!--  allows the user to edit the philosopher first name  -->
+            </div>
+
+            <div class="input-container">
+              <%= philosopher_fields.text_field :plname, required: true, placeholder: "Philosopher Last Name", class: "form-control" %> <!-- allows the user to edit a philosopher last name -->
+            </div>
+
+            <div class="input-container">
+            <%= philosopher_fields.text_area :pbiography, placeholder: "Enter Philosopher Biography", class: "form-control" %> <!-- allows a user to edit the biography about the philosopher, if applicable  -->
+            </div>
+
+            <p class="formtwo form-text">Enter Philosopher Birth Date</p>
+            <div class="input-container">
+              <%= philosopher_fields.date_field :pdob, required: true, placeholder: "Philosopher Birth Date", class: "form-control" %> <!-- allows a user to edit the birth date for the philosopher -->
+            </div>
+
+            <p class="formtwo form-text">Enter Philosopher Death Date <br>(If Applicable)</p>
+            <div class="input-container">
+              <%= philosopher_fields.date_field :pdod, placeholder: "Philosopher Death Date", class: "form-control"%> <!-- allows the user to edit the death date for the philosopher, if applicable  -->
+            </div>
+          <% end %>
+
+           <p class="formtwo form-text">Enter Quote Publication Date <br>(If Applicable)</p>
+          <div class="input-container">
+            <%= f.date_field :publicationyear, placeholder: "Publication Year", class: "form-control" %> <!-- allows the user to edit the publication date of the quote, if applicable -->
+          </div>
+          
+          <p class="formtwo form-text">Select A Category</p>
+          <div class="input-container">
+            <% selected_category = @quote.categories.first %>
+            <%= form.collection_select(:categoryname, Category.all, :categoryname, :categoryname, { selected: selected_category&.categoryname }, { prompt: 'Select a category' }) %> <!-- allows the user to edit which category for their quote is selected -->
+          </div>
+
+          <div class="input-container" style="padding-bottom: 10px;">
+            <%= f.text_area :comment, placeholder: "Enter Comment About The Quote", class: "form-control" %> <!-- allows the user to edit the comment about the quote, if applicable -->
+          </div>
+
+          <div class="form-check" style="padding-left: 200px;">
+            <label class="form-check-label">
+              <%= f.check_box :is_public, class: "form-check-input" %> <!-- allows the user to select whether the quote is set to public, everyone can see it, or private, only the creator can see it  -->
+              <p style="color: white;">Publicly Available</p>
+            </label>
+          </div>
+
+          <div class="signup-link">
+            <%= form.submit "Update Quote", class: "signup-link submit" %>
+          </div>
+
+          <div class="signup-link">
+            <%= link_to "Back to quotes", quotes_path, class:"signup-link submit" %>
+          </div>
+
+      <% end %>
+    <% end %>
+  </div>
+</div>

@@ -1,0 +1,32 @@
+<!-- This view allows admins to view all of the users that have an account. It will show a user's first name, last name,
+  email address, their account status and if they are an admin or not. On each displayed account, their is a button called manage user, 
+  which takes the admin to a new page which allows the admin to change a users account status (Active, Suspended, Banned), elevate or de-elavate 
+  a user account to an admin account (vise versa) or delete an account. -->
+
+<%= stylesheet_link_tag "customInputBar", "data-turbo-track": "reload" %>
+<% if current_user.is_admin? %> <!-- This section only allows admins to access this page -->
+  <div class="centered-formtwo">
+    <div class="form">
+    <p class="form-title">Mangage Users</p>
+    </div>
+  </div>
+  <br>
+
+  <div id="users">
+    <% @users.each do |user| %>
+    <div class="user card mb-4">
+      <div class="card-body">
+        <p class="card-text"><span style="font-weight: 600;"> First Name: </span><%= user.ufname %> </p>
+        <p class="card-text"><span style="font-weight: 600;"> Last Name: </span><%= user.ulname %> </p>
+        <p class="card-text"><span style="font-weight: 600;"> Email: </span><%= user.email %> </p>
+        <p class="card-text"><span style="font-weight: 600;"> Status: </span><%= user.status %> </p>
+        <p class="card-text"><span style="font-weight: 600;"> Admin: </span><%= user.is_admin %> </p>
+        <a href="<%= user_path(user) %>" class="submit centered-formtwo"> Manage User</a>
+      </div>
+    </div>
+    <% end %>
+  </div>
+<% else %>
+  <div class="centered-formtwo">
+  <p class="form form-title">You do not have permission to access this page.</p>
+<% end %>

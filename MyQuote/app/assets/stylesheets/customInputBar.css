@@ -1,0 +1,149 @@
+/* This first section was created by user nathann09 on the website https://uiverse.io/nathann09/bad-hound-78 and was edited by me, Brody Jeanes 
+This asset css sheet holds all of the custom input bars and visual aspects that are used and called upon throughout the app */
+.form {
+  background-color: #2a5576;
+  display: block;
+  padding: 1rem;
+  max-width: 1000px;
+  border-radius: 0.5rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.form-title {
+  font-size: 1.75rem;
+  line-height: 1.75rem;
+  font-weight: 600;
+  text-align: center;
+  color: #ffffff;
+}
+
+.input-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.input-container input, .form button {
+  outline: none;
+  border: 4px solid #e5e7eb;
+  margin: 20px 0;
+}
+
+.input-container input {
+  background-color: #fff;
+  padding: 1rem;
+  padding-right: 3rem;
+  font-size: 1rem;
+  line-height: 2rem;
+  width: 450px;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.submit {
+  display: block;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+  background-color: #4F46E5;
+  color: #ffffff;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 500;
+  width: 100%;
+  border-radius: 0.5rem;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.signup-link {
+  color: #ffffff;
+  padding-top: 0.75rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  text-align: center;
+}
+
+.signup-link a {
+  text-decoration: underline;
+}
+
+.signup-linktwo {
+  color: #ffffff;
+  padding-top: 0.75rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  text-align: left;
+}
+
+.centered-form {
+  display: flex;
+  justify-content: center;
+  padding-top: 5rem;
+}
+
+.centered-formtwo {
+  display: flex;
+  justify-content: center;
+}
+
+.centered-error {
+  background-color: #21435c;
+  display: flex;
+  justify-content: center;
+  padding-top: 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+}
+/* This section is for the edit form when the user is editing their profile details */
+.form-text {
+  background-color: #21435c;
+  font-size: 1.5rem;
+  line-height: 1.75rem;
+  font-weight: 600;
+  text-align: center;
+  color: #ffffff;
+}
+
+.form-texttwo {
+  font-size: 1.5rem;
+  line-height: 1.75rem;
+  font-weight: 600;
+  text-align: center;
+  color: #ffffff;
+}
+
+.form-titletwo {
+  font-size: 2.5rem;
+  line-height: 1.75rem;
+  font-weight: 600;
+  text-align: center;
+  color: #ffffff;
+}
+
+.formtwo {
+  background-color: #21435c;
+  display: block;
+  padding: 1rem;
+  max-width: 1000px;
+  width: 500px;
+  border-radius: 0.5rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.linkto {
+  color: #ffffff;
+  padding-top: 0.75rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  text-align: center;
+  
+}
+
+.linkto a:hover{
+  color: inherit;
+  text-decoration: none;
+}

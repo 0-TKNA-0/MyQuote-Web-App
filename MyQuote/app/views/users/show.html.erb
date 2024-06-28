@@ -1,0 +1,52 @@
+<!-- This view allows an admin to change a selected user's account status (Active, Suspended, Banned), elevate or de-elavate 
+  a user account to an admin account (vise versa) or delete an account. Deleting an account will result in all of the quotes posted by
+  the account user to also be deleted. -->
+
+<%= stylesheet_link_tag "customInputBar", "data-turbo-track": "reload" %>
+<% if current_user.is_admin? %> <!-- This section prevents anyone other than an admin from accessing a user's personal details-->
+  <div class="centered-form">
+    <div class="form" style="width: 600px;">
+      <p class="form-title"><span style="font-weight: 600;"></span><%= @user.ufname %> <%= @user.ulname %></p> <!-- This section displays a selected user's account details -->
+      <div class="user card mb-4">
+        <div class="card-body">
+          <p class="card-text"><span style="font-weight: 600;"> First Name: </span><%= @user.ufname %> </p>
+          <p class="card-text"><span style="font-weight: 600;"> Last Name: </span><%= @user.ulname %> </p>
+          <p class="card-text"><span style="font-weight: 600;"> Email: </span><%= @user.email %> </p>
+          <p class="card-text"><span style="font-weight: 600;"> Status: </span><%= @user.status %> </p>
+          <p class="card-text"><span style="font-weight: 600;"> Admin: </span><%= @user.is_admin %> </p>
+
+            <div class="form-group">
+              <%= form_for @user, url: update_user_status_path(@user), method: :patch do |f| %>
+                <p class="card-text" style="text-align: center;"><span style="font-weight: 600;"> Change Status </span> </p> 
+                <div style="text-align: center;">
+                <%= f.select :status, options_for_select(["Active", "Suspended", "Banned"], @user.status), class: "input-container"%> <!-- This section allows an admin to use a drop down box to change the selected user's account status -->
+                </div><br>
+                <%= f.submit "Update Status", class: "submit" %>
+              <% end %>
+              <br>
+              
+              <p class="card-text" style="text-align: center;"><span style="font-weight: 600;"> Change Admin Role </span> </p>
+              <%= form_for @user, url: change_admin_user_path(@user), method: :patch do |f| %>
+              <div style="text-align: center;">
+                <%= f.select :is_admin, options_for_select(["Standard User", "Administrator"], @user.is_admin), class: "input-container" %> <!-- This section allows an admin to use a drop down box to change the selected user's role, whether they are an admin or a standard user -->
+              </div><br>
+                <%= f.submit "Update Admin Role", class: "submit" %>
+              <% end %>
+
+              <div><br>
+                <%= link_to "Back to users", users_path, class: "submit" %>
+              </div><br>
+
+              <% if current_user == @user || current_user.is_admin? %>
+                <%= button_to "Delete Account", user_path(@user), method: :delete, class: "submit" %> <!-- This button allows an admin to delete an account -->
+              <% end %>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<% else %>
+  <div class="centered-formtwo">
+  <p class="form form-title">You do not have permission to access this page.</p>
+<% end %>

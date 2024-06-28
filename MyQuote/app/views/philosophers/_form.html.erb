@@ -1,0 +1,44 @@
+<!-- This view was automatically created by ruby on rails and is not utilised directly -->
+
+<%= form_with(model: philosopher) do |form| %>
+  <% if philosopher.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(philosopher.errors.count, "error") %> prohibited this philosopher from being saved:</h2>
+
+      <ul>
+        <% philosopher.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :pfname, style: "display: block" %>
+    <%= form.text_field :pfname %>
+  </div>
+
+  <div>
+    <%= form.label :plname, style: "display: block" %>
+    <%= form.text_field :plname %>
+  </div>
+
+  <div>
+    <%= form.label :pdob, style: "display: block" %>
+    <%= form.date_field :pdob %>
+  </div>
+
+  <div>
+    <%= form.label :pdod, style: "display: block" %>
+    <%= form.date_field :pdod %>
+  </div>
+
+  <div>
+    <%= form.label :pbiography, style: "display: block" %>
+    <%= form.text_area :pbiography %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
